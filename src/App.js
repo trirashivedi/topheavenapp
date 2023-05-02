@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import './assets/css/style.css';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import ProductDetails from './components/ProductDetails';
+import { properties } from './mock/properties';
+import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<>
+<Router>
+  <Switch>
+       <Route exact path="/" render={ () => <Home/> } />
+        <Route
+          exact
+          path="/property/:id"
+          render={({ match }) => (
+            <ProductDetails
+              product={properties.find(
+                (product) => String(product.id) === match.params.id
+              )}
+            />
+          )}
+        />
+  </Switch>
+   <Contact />
+   <Footer />
+  </Router>
+</>
+ 
+   
   );
 }
 
